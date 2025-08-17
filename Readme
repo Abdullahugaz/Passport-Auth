@@ -1,13 +1,13 @@
 curl.exe -X POST "http://127.0.0.1:1000/api/auth/signup" -H "Content-Type: application/json" -d "{\"email\":\"admin@example.com\",\"password\":\"Passw0rd!\",\"name\":\"Admin\"}"
 curl.exe -X POST "http://127.0.0.1:1000/api/auth/login"  -H "Content-Type: application/json" -d "{\"email\":\"admin@example.com\",\"password\":\"Passw0rd!\"}"
 
-$body = @{ email="ugaz@gmail.com"; password="123456!"; name="Anas" } | ConvertTo-Json
+$body = @{ email="ugaz@gmail.com"; password="12345678!"; name="Anas" } | ConvertTo-Json
 Invoke-RestMethod -Method Post -Uri "http://127.0.0.1:1000/api/auth/signup" `
   -ContentType "application/json" `
   -Body $body
 
 
-$loginBody = @{ email="admin@example.com"; password="Passw0rd!" } | ConvertTo-Json
+$loginBody = @{ email="ugaz@gmail.com"; password="12345678!" } | ConvertTo-Json
 Invoke-RestMethod -Method Post -Uri "http://127.0.0.1:1000/api/auth/login" `
   -ContentType "application/json" `
   -Body $loginBody

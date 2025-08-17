@@ -6,15 +6,21 @@ import User from '../models/User.js';
 import requireAuth from '../middleware/requireAuth.js';
 
 const router = Router();
-const { JWT_SECRET, JWT_EXPIRES_IN = '7d' } = process.env;
+const { JWT_SECRET } = process.env;
+if (!JWT_SECRET) {
+  throw new Error('JWT_SECRET is missing (check your .env)');
+}
+
+// const { JWT_SECRET, JWT_EXPIRES_IN = '7d' } = process.env;
 
 function signToken(user) {
   return jwt.sign(
     { sub: user.id, email: user.email },
     JWT_SECRET,
-    { expiresIn: JWT_EXPIRES_IN }
+    { expiresIn: '2m' }   // 2 minutes
   );
 }
+
 
 // POST /api/auth/signup
 router.post(
@@ -46,8 +52,6 @@ router.post(
     }
   }
 );
-
-// POST /api/auth/login
 router.post(
   '/login',
   [body('email').isEmail(), body('password').isString().isLength({ min: 1 })],
